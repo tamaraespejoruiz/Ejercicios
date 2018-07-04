@@ -1,0 +1,65 @@
+/* Escribir un programa que reemplace las palabras de lineas
+ingresadas por el usuario. 
+./reemplazar supimos supieron
+
+usuario ingresa: 
+hola como estas
+que supimos conseguir
+chao 
+
+Programa muestra:
+hola como estas
+que supieron conseguir
+chao */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define ARG_MAX 3
+#define ARG_POS_1 1
+#define ARG_POS_2 2
+
+#define MAX_CANT 100
+
+/* no valide nada, solo quiero ver si se puede mejorar este codigo rustico. Avisame.*/
+int main(int argc, char *argv[]){
+
+    char aux[MAX_CANT];
+    char *resultado;
+    size_t cant_viejo,i,j = 0;
+    char resto[MAX_CANT];
+
+
+
+    cant_viejo = strlen(argv[ARG_POS_1]);
+    
+    while(fgets(aux, MAX_CANT, stdin) != NULL){  
+
+        resultado = strstr(aux, argv[ARG_POS_1]);
+/* La funcion strstr(aux,vieja) localiza la primera ocurrencia de vieja en la cadena aux y
+devuelve un puntero a la primera ocurrencia o NULL si la cadena no se encuentra. */
+        printf("Lo que tiene resultado es:%s\n", resultado);
+
+        if(resultado != NULL){ 
+
+            for(i = (cant_viejo +1), j = 0; aux[i] != '\0'; i++, j++ ){
+                resto[j] = resultado[i];
+            }
+            resultado[cant_viejo] = '\0'; 
+            resto[j +1] ='\0'; 
+            strcpy(resultado ,argv[ARG_POS_2]);
+
+            printf("%s %s\n",aux,resto);
+            resto[0] = '\0';
+        }
+
+        else {
+            printf("%s\n", aux);
+            resto[0] = '\0';
+        }
+
+    }
+
+    return EXIT_SUCCESS;
+}
